@@ -1,27 +1,23 @@
-version: 0.2
+version: 0.1
+component: build
+timeoutInSeconds: 600
 
-phases:
-  install:
-    runtime-versions:
-      python: 3.11
-    commands:
-      - echo "Installing dependencies..."
-      # If you create a requirements.txt later, uncomment the line below:
-      # - pip install -r requirements.txt
+shell: bash
 
-  build:
-    commands:
-      - echo "Running Python script check..."
-      # This simply checks if the script runs without syntax errors
-      - python -m py_compile crime.py
-      - echo "Build phase complete."
+steps:
+  - type: Command
+    name: Install Dependencies
+    command: |
+      echo "Installing dependencies..."
+      npm install
 
-  post_build:
-    commands:
-      - echo "Build completed on `date`"
+  - type: Command
+    name: Build
+    command: |
+      echo "Building project..."
+      npm run build
 
-artifacts:
-  files:
-    - crime.py
-    - crime_data.csv
-    - Phase-1 Abstract.docx
+  - type: Command
+    name: Done
+    command: |
+      echo "Build completed"
